@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+
+    <style>
+        /* ===== Background Image ===== */
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(10px);
+            padding: 18px 40px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-size: 26px;
+            font-weight: bold;
+            color: #0d1a33;
+            letter-spacing: 1px;
+        }
+
+        .logout-btn {
+            background: #a2b1c9;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* ===== White Card Container ===== */
+        .container {
+            width: 55%;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 18px;
+            padding: 50px;
+            margin: 150px auto;  /* pushes below navbar */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .btn {
+            padding: 12px 26px;
+            background: #0d1a33;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 25px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="brand">DiabetPredict AI</div>
+        <a href="home.html" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- RESULT BOX -->
+    <div class="container">
+        <h1>{{ result_heading }}</h1>
+        <p>{{ result_message }}</p>
+
+        <a href="index.html" class="btn">Predict Again</a>
+    </div>
+
+</body>
+</html>

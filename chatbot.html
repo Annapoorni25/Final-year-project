@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartHealth AI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+        .chat-container {
+            width: 380px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .chat-box {
+            height: 420px;
+            overflow-y: auto;
+        }
+        .bot {
+            background: #e8f1ff;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 8px 0;
+            max-width: 80%;
+        }
+        .user {
+            background: #c9f5d6;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 8px 0;
+            margin-left: auto;
+            max-width: 80%;
+            text-align: right;
+        }
+        .buttons {
+            margin: 6px 0;
+        }
+        .buttons button {
+            display: block;
+            width: 50%;
+            margin: 5px auto;
+            padding: 8px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="chat-container">
+    <div class="chat-box" id="chat"></div>
+</div>
+
+<script>
+const chat = document.getElementById("chat");
+
+const knowledge = {
+    ckd: {
+        Symptoms: "Fatigue, swelling of legs, reduced urine output, nausea.",
+        Causes: "Diabetes, high blood pressure, kidney infections.",
+        Prevention: "Control BP & sugar, avoid smoking, stay hydrated.",
+        Lifestyle: "Low salt diet, regular exercise, routine kidney tests."
+    },
+    hf: {
+        Symptoms: "Breathlessness, ankle swelling, tiredness.",
+        Causes: "Coronary artery disease, hypertension.",
+        Prevention: "Low sodium diet, exercise, BP control.",
+        Lifestyle: "Medication adherence, daily walking."
+    },
+    diabetes: {
+        Symptoms: "Frequent urination, thirst, fatigue.",
+        Causes: "Insulin resistance, genetics.",
+        Prevention: "Healthy diet, exercise, weight control.",
+        Lifestyle: "Low sugar diet, regular glucose monitoring."
+    }
+};
+
+let currentDisease = null;
+
+/* ---------- UI HELPERS ---------- */
+
+function addBot(text) {
+    chat.innerHTML += `<div class="bot">${text}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function addUser(text) {
+    chat.innerHTML += `<div class="user">${text}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function addButtons(options, handler) {
+    let html = `<div class="buttons">`;
+    options.forEach(opt => {
+        html += `<button onclick="${handler}('${opt}')">${opt}</button>`;
+    });
+    html += `</div>`;
+    chat.innerHTML += html;
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function removeButtons() {
+    const btns = document.querySelectorAll(".buttons");
+    if (btns.length > 0) {
+        btns[btns.length - 1].remove();
+    }
+}
+
+/* ---------- CHAT FLOW ---------- */
+
+function startChat() {
+    addBot("Hi 👋 I'm SmartHealth AI Assistant.<br>What disease do you want to know about?");
+    addButtons(["ckd", "hf", "diabetes"], "selectDisease");
+}
+
+function selectDisease(disease) {
+    removeButtons();
+    currentDisease = disease;
+
+    addUser(disease.toUpperCase());
+    addBot(`Here are common topics about ${disease.toUpperCase()}:`);
+    addButtons(["Symptoms", "Causes", "Prevention", "Lifestyle", "No"], "selectTopic");
+}
+
+function selectTopic(topic) {
+    removeButtons();
+    addUser(topic);
+
+    if (topic === "No") {
+        addBot("Do you want to know about another disease?");
+        addButtons(["ckd", "hf", "diabetes", "No"], "handleNext");
+        return;
+    }
+
+    addBot(`<b>${topic}:</b> ${knowledge[currentDisease][topic]}`);
+    addBot("Do you have more questions about this disease?");
+    addButtons(["Yes", "No"], "moreQuestions");
+}
+
+function moreQuestions(choice) {
+    removeButtons();
+    addUser(choice);
+
+    if (choice === "Yes") {
+        addBot("What would you like to know?");
+        addButtons(["Symptoms", "Causes", "Prevention", "Lifestyle", "No"], "selectTopic");
+    } else {
+        addBot("Do you want to know about another disease?");
+        addButtons(["ckd", "hf", "diabetes", "No"], "handleNext");
+    }
+}
+
+function handleNext(choice) {
+    removeButtons();
+    addUser(choice);
+
+    if (choice === "No") {
+        addBot("Thank you for using SmartHealth AI 💙");
+    } else {
+        selectDisease(choice);
+    }
+}
+
+/* ---------- START ---------- */
+startChat();
+</script>
+</body>
+</html>

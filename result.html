@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(10px);
+            padding: 18px 40px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-size: 26px;
+            font-weight: bold;
+            color: #0d1a33;
+        }
+
+        .nav-btn {
+            background: #0d1a33;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 12px;
+        }
+
+        /* Main Card */
+        .container {
+            width: 55%;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 18px;
+            padding: 50px;
+            margin: 160px auto 60px auto;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+            text-align: left;
+        }
+
+        h2 {
+            text-align: center;
+            color: #0d1a33;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #0d1a33;
+        }
+
+        ul {
+            margin-top: 8px;
+        }
+
+        .again-btn {
+            display: block;
+            margin: 35px auto 10px auto;
+            background: #0d1a33;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="brand">🏥 SmartHealth AI</div>
+
+        <div>
+            <a href="/" class="nav-btn">Home</a>
+           
+        </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="container">
+
+        <h2>Prediction Result</h2>
+
+        <p><strong>Status:</strong> {{ status }}</p>
+        <p><strong>Model Confidence:</strong> {{ confidence }}%</p>
+        <p><strong>Predicted Severity Score:</strong> {{ severity }}%</p>
+        <p><strong>Severity Level:</strong> {{ severity_level }}</p>
+        <p><strong>Readmission Suggestion:</strong> {{ readmission }}</p>
+
+        <div class="section-title">Lifestyle Suggestions:</div>
+        <ul>
+            {% for item in lifestyle %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="section-title">Recommended Insurance Plan:</div>
+        <p><strong>{{ insurance }}</strong></p>
+
+        <ul>
+            {% for reason in insurance_reason %}
+                <li>{{ reason }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="/" class="again-btn">Predict Again</a>
+
+    </div>
+
+</body>
+</html>

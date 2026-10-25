@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - DiabetPredict AI</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial;
+            background: url('/static/images/img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* NAVBAR */
+        nav {
+            width: 100%;
+            background: rgba(30, 60, 114, 0.9);
+            padding: 12px 0;
+        }
+
+        /* FIX: NAVBAR CONTAINER */
+        .nav-container {
+            width: 95%;       /* FIX: reduces overflow */
+            max-width: 1300px; /* FIX: limits navbar width */
+            margin: 0 auto;   /* centers navbar */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* LOGO */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* HOME BUTTON */
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* LOGIN BOX */
+        .container {
+            max-width: 400px;
+            margin: 120px auto;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: none;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            padding: 12px;
+            background: #1d3c72;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type=submit]:hover {
+            background: #163259;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+
+            <div class="logo">🏥 DiabetPredict AI</div>
+
+            <div class="nav-links">
+                <a href="/">Home</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- LOGIN BOX -->
+    <div class="container">
+        <h2 style="text-align:center; color:white;">Login</h2>
+        <form method="POST" action="/login">
+            <input type="text" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+</body>
+</html>

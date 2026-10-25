@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Failure Prediction - CardioPredict AI</title>
+
+    <style>
+        body { 
+            background: url('/static/images/img1.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            font-family: Arial, sans-serif; 
+            margin:0; 
+            padding:0; 
+        }
+
+        /* Navbar */
+        nav { 
+            width:100%; 
+            padding:15px 30px; 
+            background: rgba(30,60,114,0.95); 
+            display:flex; 
+            justify-content: space-between; 
+            align-items:center; 
+            position: fixed; 
+            top:0; 
+            left:0;
+            z-index:1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            overflow: visible; 
+            box-sizing: border-box;
+        }
+
+        nav .logo { 
+            font-size:1.5rem; 
+            color:#fff; 
+            font-weight:bold; 
+        }
+
+        nav .nav-buttons {
+            margin-left: auto;
+        }
+
+        nav .nav-buttons a { 
+            display:inline-block;
+            padding:10px 20px;
+            font-weight:bold;
+            background:#00d4ff;
+            color:#112240;
+            border-radius:5px;
+            text-decoration:none;
+            transition:0.3s;
+        }
+
+        nav .nav-buttons a:hover { 
+            background:#0077aa; 
+            color:white; 
+        }
+
+        .spacer { height:70px; }
+
+        /* Form container */
+        .container {
+            max-width: 950px;
+            margin: 0 auto 50px; 
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Transparent boxes (updated) */
+        .box {
+            flex: 1 1 400px;
+            background: rgba(255,255,255,0.10);  /* transparent */
+            backdrop-filter: blur(10px);
+            padding: 20px; 
+            border-radius:12px; 
+            box-shadow:0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 30px rgba(0,0,0,0.4);
+        }
+
+        h2 { color:white; text-align:center; margin-bottom:15px; text-shadow:0 0 4px black; }
+
+        input, select, button { 
+            width:100%; 
+            padding:12px; 
+            margin:8px 0; 
+            border:1px solid #ccc; 
+            border-radius:5px; 
+            background:white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        button { 
+            background:#4CAF50; 
+            color:white; 
+            border:none; 
+            cursor:pointer; 
+            font-weight:bold;
+        }
+        button:hover { background:#45a049; }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">🫀 CardioPredict AI</div>
+    <div class="nav-buttons">
+        <a href="/">Home</a>
+    </div>
+</nav>
+
+<div class="spacer"></div>
+
+<!-- FORM -->
+<div class="container">
+<form action="/predict_hf" method="POST" style="display:flex; flex-wrap:wrap; gap:20px; width:100%; justify-content:center;">
+
+    <!-- COLUMN 1 -->
+    <div class="box">
+        <h2>Patient Details</h2>
+
+        <input type="number" step="0.1" name="Age" placeholder="Age" required>
+
+        <select name="Gender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+
+        <select name="Ethnicity" required>
+            <option value="" disabled selected>Select Ethnicity</option>
+            <option>Asian</option>
+            <option>African</option>
+            <option>Caucasian</option>
+            <option>Hispanic</option>
+            <option>Other</option>
+        </select>
+
+        <input type="number" step="0.1" name="BMI" placeholder="BMI" required>
+        <input type="number" step="0.1" name="Systolic_BP" placeholder="Systolic BP" required>
+        <input type="number" step="0.1" name="Diastolic_BP" placeholder="Diastolic BP" required>
+        <input type="number" step="0.1" name="Resting_Heart_Rate" placeholder="Resting Heart Rate" required>
+        <input type="number" step="0.1" name="Respiratory_Rate" placeholder="Respiratory Rate" required>
+        <select name="Smoking_Status" required>
+            <option value="" disabled selected>Select Smoking Status</option>
+            <option>Never</option>
+            <option>Former</option>
+            <option>Current</option>
+        </select>
+    </div>
+
+    <!-- COLUMN 2 -->
+    <div class="box">
+        <h2>Clinical Metrics</h2>
+
+        
+
+        <select name="Alcohol_Consumption" required>
+            <option value="" disabled selected>Alcohol Consumption</option>
+            <option>None</option>
+            <option>Light</option>
+            <option>Moderate</option>
+            <option>Heavy</option>
+        </select>
+
+        <input type="number" step="0.01" name="Serum_Creatinine" placeholder="Serum Creatinine" required>
+        <input type="number" step="0.1" name="eGFR" placeholder="eGFR" required>
+        <input type="number" step="0.1" name="BUN" placeholder="BUN" required>
+        <input type="number" step="0.1" name="Albumin" placeholder="Albumin" required>
+
+        <select name="Proteinuria" required>
+            <option value="" disabled selected>Proteinuria</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+
+        <input type="number" step="0.1" name="HbA1c" placeholder="HbA1c (%)" required>
+        <input type="number" step="0.1" name="Fasting_Glucose" placeholder="Fasting Glucose" required>
+
+        <select name="Diabetes_Status" required>
+            <option value="" disabled selected>Diabetes Status</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+
+        <button type="submit">Predict</button>
+    </div>
+
+</form>
+</div>
+
+</body>
+</html>

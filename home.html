@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartHealth AI</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{color:#fff}
+
+/* NAVBAR */
+nav{
+  width:100%;padding:15px 50px;position:fixed;top:0;left:0;
+  background:rgba(30,60,114,0.85);
+  display:flex;justify-content:space-between;align-items:center;z-index:10
+}
+nav .logo{font-size:1.8rem;font-weight:bold}
+nav .nav-buttons{display:flex;gap:20px}
+nav .nav-buttons a{
+  text-decoration:none;padding:8px 20px;border-radius:25px;
+  border:2px solid #00d4ff;color:#00d4ff;font-weight:bold;transition:.3s
+}
+nav .nav-buttons a:hover{background:#00d4ff;color:#112240}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  background:url('https://static.vecteezy.com/system/resources/previews/006/712/985/original/abstract-health-medical-science-healthcare-icon-digital-technology-science-concept-modern-innovation-treatment-medicine-on-hi-tech-future-blue-background-for-wallpaper-template-web-design-vector.jpg') no-repeat center/cover;
+  padding-top:120px;position:relative
+}
+.hero::after{
+  content:"";position:absolute;top:0;left:0;width:100%;height:100%;
+  background:rgba(30,60,114,0.45)
+}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero h1{font-size:3rem;margin-bottom:15px}
+.hero p{font-size:1.4rem;margin-bottom:40px}
+
+.cards{display:flex;justify-content:center;gap:20px}
+.card{
+  background:rgba(255,255,255,.15);
+  border-radius:15px;padding:25px;width:250px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  transition:.3s
+}
+.card:hover{transform:translateY(-10px)}
+.card h3{margin-bottom:10px}
+
+footer{text-align:center;padding:20px;background:#112240}
+
+/* CHATBOT */
+.chatbot-icon{
+  position:fixed;bottom:25px;right:25px;
+  width:55px;height:55px;border-radius:50%;
+  background:#007bff;color:#fff;
+  display:flex;justify-content:center;align-items:center;
+  font-size:26px;cursor:pointer;z-index:9999
+}
+.chatbot{
+  position:fixed;bottom:90px;right:25px;
+  width:360px;height:460px;
+  background:#fff;border-radius:15px;
+  display:none;flex-direction:column;
+  box-shadow:0 0 25px rgba(0,0,0,.3);
+  z-index:9999
+}
+.chatbot-header{
+  background:#007bff;color:white;
+  padding:12px;font-weight:bold;
+  display:flex;justify-content:space-between
+}
+.chatbot-body{
+  flex:1;padding:10px;overflow-y:auto;background:#f4f6f8
+}
+.bot{background:#e8f1ff;padding:10px;border-radius:10px;margin:6px 0;max-width:80%;color: black;}
+.user{
+  background:#c9f5d6;padding:10px;border-radius:10px;
+  color: black;
+  margin:6px 0;margin-left:auto;max-width:80%;text-align:right
+}
+.buttons button{
+  width:50%;margin:4px 0;padding:8px;
+  border:none;border-radius:6px;
+  display: block;
+  background:#007bff;color:#fff;cursor:pointer
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">🏥 SmartHealth AI</div>
+  <div class="nav-buttons">
+    <a href="/index_ckd">NephroPredict</a>
+    <a href="/index_hf">CardioPredict</a>
+    <a href="/index">DiabetesPredict</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>SmartHealth AI</h1>
+    <p>Your AI-powered companion for chronic disease prediction.</p>
+
+    <div class="cards">
+      <div class="card"><h3>Accurate Detection</h3><p>AI-powered early disease prediction.</p></div>
+      <div class="card"><h3>Personalized Insights</h3><p>Severity & lifestyle guidance.</p></div>
+      <div class="card"><h3>Track Progress</h3><p>Reduce complications & readmissions.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>&copy; 2025 SmartHealth AI</footer>
+
+<!-- CHATBOT ICON -->
+<div class="chatbot-icon" onclick="toggleChat()">💬</div>
+
+<!-- CHATBOT -->
+<div class="chatbot" id="chatbot">
+  <div class="chatbot-header">
+    SmartHealth AI
+    <span style="cursor:pointer" onclick="toggleChat()">✖</span>
+  </div>
+  <div class="chatbot-body" id="chat"></div>
+</div>
+
+<script>
+const chat=document.getElementById("chat");
+const bot=document.getElementById("chatbot");
+
+function toggleChat(){bot.style.display=bot.style.display==="flex"?"none":"flex"}
+
+const knowledge={
+  ckd:{Symptoms:"Fatigue, swelling, reduced urine.",Causes:"Diabetes, BP.",Prevention:"BP & sugar control.",Lifestyle:"Low salt diet."},
+  hf:{Symptoms:"Breathlessness, fatigue.",Causes:"Heart disease.",Prevention:"Low sodium.",Lifestyle:"Medication & exercise."},
+  diabetes:{Symptoms:"Thirst, urination.",Causes:"Insulin resistance.",Prevention:"Healthy diet.",Lifestyle:"Sugar control."}
+};
+
+function addBot(t){chat.innerHTML+=`<div class="bot">${t}</div>`}
+function addUser(t){chat.innerHTML+=`<div class="user">${t}</div>`}
+function clearButtons(){document.querySelectorAll(".buttons").forEach(b=>b.remove())}
+function buttons(arr,fn){
+  let h=`<div class="buttons">`;
+  arr.forEach(a=>h+=`<button onclick="${fn}('${a}')">${a}</button>`);
+  h+=`</div>`;chat.innerHTML+=h
+}
+
+function start(){
+  addBot("Hi 👋 What disease do you want to know about?");
+  buttons(["ckd","hf","diabetes"],"disease")
+}
+
+function disease(d){
+  clearButtons();window.cur=d;addUser(d.toUpperCase());
+  addBot("Choose a topic:");
+  buttons(["Symptoms","Causes","Prevention","Lifestyle","No"],"topic")
+}
+
+function topic(t){
+  clearButtons();addUser(t);
+  if(t==="No"){addBot("Other disease?");buttons(["ckd","hf","diabetes","No"],"next");return}
+  addBot(`<b>${t}:</b> ${knowledge[cur][t]}`);
+  addBot("More questions?");
+  buttons(["Yes","No"],"more")
+}
+
+function more(c){
+  clearButtons();addUser(c);
+  c==="Yes"?buttons(["Symptoms","Causes","Prevention","Lifestyle","No"],"topic"):
+  (addBot("Other disease?"),buttons(["ckd","hf","diabetes","No"],"next"))
+}
+
+function next(c){
+  clearButtons();addUser(c);
+  c==="No"?addBot("Thank you 💙"):disease(c)
+}
+
+start();
+</script>
+
+</body>
+</html>
